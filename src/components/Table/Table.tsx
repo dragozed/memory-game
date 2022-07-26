@@ -3,22 +3,24 @@ import { useState } from "react";
 
 import "./Table.scss";
 import { Cell } from "../Cell/Cell";
+import { Counter } from "../Counter/Counter";
 import { generateGameData } from "../../utils/generateGameData";
 import { createSecureContext } from "tls";
 
 interface TableProps {
   size: number;
+  tableDisabled: boolean;
 }
 
 export const Table: React.FC<TableProps> = ({ size }) => {
   const [cells, setCells] = useState(generateGameData(size));
   const [clickCounter, setClickCounter] = useState(0);
-  const [tablePointer, tableSet] = useState(false);
+  const [tableDisabled, setTableDisabled] = useState(false);
 
   const cartClickHandler = (index: number) => {
-    tableSet(true);
+    setTableDisabled(true);
     setTimeout(() => {
-      tableSet(false);
+      setTableDisabled(false);
     }, 500);
     const newCells = [...cells];
     newCells[index].isOpen = !newCells[index].isOpen;
@@ -66,7 +68,7 @@ export const Table: React.FC<TableProps> = ({ size }) => {
   };
 
   return (
-    <div className={`table table-${size} ${tablePointer ? "deactive" : ""}`}>
+    <div className={`table table-${size} ${tableDisabled ? "deactive" : ""}`}>
       {cells.map((cell, index: number) => (
         <Cell
           key={index}

@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import Slider from "@mui/material/Slider";
+import { useNavigate } from "react-router-dom";
 
 import "./Home.scss";
 import { Table } from "../components/Table/Table";
 import { Button, Typography } from "@mui/material";
 import { HowToPlay } from "../components/HowToPlay/HowToPlay";
+import { Counter } from "../components/Counter/Counter";
 
 export const Home: React.FC = () => {
   const [tableSize, setTableSize] = useState(16);
@@ -57,7 +59,8 @@ export const Home: React.FC = () => {
           >
             Back
           </Button>
-          <Table size={tableSize} />
+          <Counter isDone={false} isActive={true} />
+          <Table size={tableSize} tableDisabled={false} />
         </>
       )}
     </div>
